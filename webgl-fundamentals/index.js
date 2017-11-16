@@ -7,22 +7,23 @@ import {
   createProgram
 } from './utils'
 
-const TRIANGLE_POINTS = [
-  ...[0, 1],
-  ...[1, 1],
-  ...[1, 0]
-]
+const TRIANGLE_POINTS = new Float32Array([
+  0, 0, 0,
+  ...[0, 1], -1,
+  ...[1, 1], -1,
+  ...[1, 0], -1
+])
 
 const extractDataFromBuffer = (gl, positionAttributePointer) => {
   // Enable the attribute
   gl.enableVertexAttribArray(positionAttributePointer)
 
-    // Tell the attribute how to get data out of positionBuffer (ARRAY_BUFFER)
-  const size = 2          // 2 components per iteration
-  const type = gl.FLOAT   // the data is 32bit floats
-  const normalize = false // don't normalize the data
-  const stride = 0        // 0 = move forward size * sizeof(type) each iteration to get the next position
-  const offset = 0       // start at the beginning of the buffer
+  const size = 2
+  const type = gl.FLOAT
+  const normalize = false
+  const stride = 3 * TRIANGLE_POINTS.BYTES_PER_ELEMENT
+  const offset = 3 * TRIANGLE_POINTS.BYTES_PER_ELEMENT
+  // specifying the memory layout of the buffer holding the vertex attributes
   gl.vertexAttribPointer(positionAttributePointer, size, type, normalize, stride, offset)
 }
 
@@ -56,7 +57,7 @@ const main = () => {
   gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer)
 
   // Put the data in the buffer
-  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(TRIANGLE_POINTS), gl.STATIC_DRAW)
+  gl.bufferData(gl.ARRAY_BUFFER, TRIANGLE_POINTS, gl.STATIC_DRAW)
 
   // Rendering
 

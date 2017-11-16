@@ -4,33 +4,18 @@ import fragmentShaderSource from './shaders/fragment.glsl'
 import {
   resizeCanvasToDisplaySize,
   createShader,
-  createProgram
+  createProgram,
+  setResolutionToUniform
 } from './utils'
 
-const TRIANGLE_POINTS = new Float32Array([
-  0, 0, 0,
-  ...[0, 1], -1,
-  ...[1, 1], -1,
-  ...[1, 0], -1
-])
-
 const extractDataFromBuffer = (gl, positionAttributePointer) => {
-  // Enable the attribute
   gl.enableVertexAttribArray(positionAttributePointer)
 
   const size = 2
   const type = gl.FLOAT
   const normalize = false
-  const stride = 3 * TRIANGLE_POINTS.BYTES_PER_ELEMENT
-  const offset = 3 * TRIANGLE_POINTS.BYTES_PER_ELEMENT
-  // specifying the memory layout of the buffer holding the vertex attributes
-  gl.vertexAttribPointer(positionAttributePointer, size, type, normalize, stride, offset)
-}
 
-const draw = gl => {
-  const offset = 0
-  const count = 3
-  gl.drawArrays(gl.TRIANGLES, offset, count)
+  gl.vertexAttribPointer(positionAttributePointer, size, type, normalize, 0, 0)
 }
 
 const main = () => {
@@ -39,6 +24,23 @@ const main = () => {
   if (!gl) {
     return
   }
+
+  const FIRST_TRIANGLE = [
+    ...[0, 0],
+    ...[Math.floor(window.innerWidth / 2), 0],
+    ...[0, Math.floor(window.innerHeight / 2)]
+  ]
+
+  const SECOND_TRIANGLE = [
+    ...[window.innerWidth, window.innerHeight],
+    ...[Math.floor(window.innerWidth / 2), window.innerHeight],
+    ...[window.innerWidth, Math.floor(window.innerHeight / 2)]
+  ]
+
+  const TRIANGLE_POINTS = new Float32Array([
+    ...FIRST_TRIANGLE,
+    ...SECOND_TRIANGLE
+  ])
 
   // Creating Shaders from source
   const vertexShader = createShader(gl, gl.VERTEX_SHADER, vertexShaderSource)
@@ -72,7 +74,9 @@ const main = () => {
 
   extractDataFromBuffer(gl, positionAttributePointer)
 
-  draw(gl)
+  setResolutionToUniform(gl, program, 'u_resolution')
+
+  gl.drawArrays(gl.TRIANGLES, 0, TRIANGLE_POINTS.length / 2)
 }
 
 main()

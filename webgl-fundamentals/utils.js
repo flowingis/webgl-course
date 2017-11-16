@@ -36,3 +36,8 @@ export const createProgram = (gl, vertexShader, fragmentShader) => {
   console.log(gl.getProgramInfoLog(program))
   gl.deleteProgram(program)
 }
+
+export const setResolutionToUniform = (gl, program, uniformName) => {
+  const resolutionUniformLocation = gl.getUniformLocation(program, uniformName)
+  gl.uniform2f(resolutionUniformLocation, gl.canvas.width, gl.canvas.height)
+}

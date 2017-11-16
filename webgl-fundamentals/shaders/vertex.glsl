@@ -1,5 +1,8 @@
-attribute vec4 a_position;
+attribute vec2 a_position;
+uniform vec2 u_resolution;
 
-void main() {
-  gl_Position = a_position;
+ void main() {
+  vec2 unsignedInterval = a_position / (u_resolution / 2.0);
+  vec2 clipSpace = unsignedInterval - 1.0;
+  gl_Position = vec4(clipSpace * vec2(1, -1), 0, 1);
 }

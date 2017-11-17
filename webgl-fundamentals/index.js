@@ -25,6 +25,18 @@ const setColor = (redShade, gl, program) => {
   gl.uniform4f(colorUniformPointer, redShade, 0, 0, 1)
 }
 
+const rotate = (x, y, gl, program) => {
+  const rotation = [x, y]
+  const rotationPointer = gl.getUniformLocation(program, 'u_rotation')
+  gl.uniform2fv(rotationPointer, rotation)
+}
+
+const translate = (x, y, gl, program) => {
+  const translation = [x, y]
+  const translationPointer = gl.getUniformLocation(program, 'u_translation')
+  gl.uniform2fv(translationPointer, translation)
+}
+
 const main = () => {
   const canvas = document.querySelector('canvas[role="main"]')
   const gl = canvas.getContext('webgl')
@@ -59,15 +71,17 @@ const main = () => {
 
   setResolutionToUniform(gl, program, 'u_resolution')
 
-  let xOffset = 200
   let counter = 0
+
+  translate(200, 200, gl, program)
 
   const draw = () => {
     const cos = Math.cos(counter)
-    xOffset = 200 + (cos * 100)
 
+    rotate(cos, Math.sin(counter), gl, program)
     setColor(Math.abs(cos), gl, program)
-    drawEquilateralTriangle(xOffset, 200, 100, gl, program)
+
+    drawEquilateralTriangle(0, 0, 100, gl, program)
 
     counter += 0.1
 

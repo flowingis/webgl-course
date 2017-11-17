@@ -8,7 +8,7 @@ import {
   setResolutionToUniform
 } from './utils'
 
-import drawTriangle from './drawTriangle'
+import drawEquilateralTriangle from './drawEquilateralTriangle'
 
 const extractDataFromBuffer = (gl, positionAttributePointer) => {
   gl.enableVertexAttribArray(positionAttributePointer)
@@ -18,6 +18,11 @@ const extractDataFromBuffer = (gl, positionAttributePointer) => {
   const normalize = false
 
   gl.vertexAttribPointer(positionAttributePointer, size, type, normalize, 0, 0)
+}
+
+const setColor = (redShade, gl, program) => {
+  const colorUniformPointer = gl.getUniformLocation(program, 'u_color')
+  gl.uniform4f(colorUniformPointer, redShade, 0, 0, 1)
 }
 
 const main = () => {
@@ -54,9 +59,22 @@ const main = () => {
 
   setResolutionToUniform(gl, program, 'u_resolution')
 
-  for (let i = 0; i < 100; ++i) {
-    drawTriangle(gl, program)
+  let xOffset = 200
+  let counter = 0
+
+  const draw = () => {
+    const cos = Math.cos(counter)
+    xOffset = 200 + (cos * 100)
+
+    setColor(Math.abs(cos), gl, program)
+    drawEquilateralTriangle(xOffset, 200, 100, gl, program)
+
+    counter += 0.1
+
+    window.requestAnimationFrame(draw)
   }
+
+  window.requestAnimationFrame(draw)
 }
 
 main()

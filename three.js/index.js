@@ -1,4 +1,7 @@
 import * as THREE from 'three'
+import initStats from './stats'
+
+initStats()
 
 const createCamera = () => {
   const camera = new THREE.PerspectiveCamera(

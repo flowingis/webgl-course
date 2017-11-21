@@ -13,12 +13,19 @@ const createCamera = () => {
 
 const createCube = () => {
   const geometry = new THREE.BoxGeometry(1, 1, 1)
-  const cube = new THREE.Mesh(geometry)
+  const material = new THREE.MeshBasicMaterial({ color: 0xDEE831 })
+  const cube = new THREE.Mesh(geometry, material)
   cube.position.set(1, 0, -3)
   return cube
 }
 
-const scene = new THREE.Scene()
+const createScene = () => {
+  const scene = new THREE.Scene()
+  scene.background = new THREE.Color(0x1280AD)
+  return scene
+}
+
+const scene = createScene()
 const camera = createCamera()
 const cube = createCube()
 

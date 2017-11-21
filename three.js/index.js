@@ -37,17 +37,17 @@ scene.add(cube)
 const renderer = new THREE.WebGLRenderer()
 
 document.body.appendChild(renderer.domElement)
+renderer.setSize(window.innerWidth, window.innerHeight)
 
 const render = () => {
+  renderer.render(scene, camera)
+  window.requestAnimationFrame(render)
+}
+
+window.requestAnimationFrame(render)
+
+window.addEventListener('resize', () => {
   renderer.setSize(window.innerWidth, window.innerHeight)
   camera.aspect = window.innerWidth / window.innerHeight
   camera.updateProjectionMatrix()
-  renderer.render(scene, camera)
-}
-
-renderer.setSize(window.innerWidth, window.innerHeight)
-renderer.render(scene, camera)
-
-window.addEventListener('resize', () => {
-  render()
 })

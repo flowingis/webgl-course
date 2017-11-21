@@ -1,5 +1,6 @@
 import * as THREE from 'three'
 import initStats from './stats'
+import bindControls from './controls'
 
 initStats()
 
@@ -51,6 +52,8 @@ const render = () => {
   renderer.render(scene, camera)
   window.requestAnimationFrame(render)
 }
+
+bindControls(camera, document.body)
 
 window.requestAnimationFrame(render)
 

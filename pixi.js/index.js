@@ -15,4 +15,4 @@ window.addEventListener('resize', () => {
   app.renderer.resize(window.innerWidth, window.innerHeight)
 }, true)
 
-window.document.body.addEventListener('click', square.move)
+window.document.body.addEventListener('click', square.startRotating)

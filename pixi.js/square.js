@@ -13,13 +13,22 @@ const createSquare = (size) => {
 
 export default (app, size) => {
   let shouldMove = false
+  let shouldRotate = false
   const square = createSquare(size)
 
   const move = () => {
     shouldMove = true
   }
 
+  const startRotating = () => {
+    shouldRotate = true
+  }
+
   app.ticker.add(delta => {
+    if (shouldRotate) {
+      square.rotation += 0.1 * delta
+    }
+
     if (shouldMove) {
       const END = window.innerWidth - size
       const INCREMENT = 50 * delta
@@ -31,6 +40,7 @@ export default (app, size) => {
 
   return {
     element: square,
-    move
+    move,
+    startRotating
   }
 }

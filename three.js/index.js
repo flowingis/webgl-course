@@ -40,6 +40,7 @@ const camera = createCamera()
 const cube = createCube()
 const light = createLight()
 let movementVector
+let counter = 0
 
 scene.add(cube)
 scene.add(light)
@@ -54,6 +55,9 @@ const render = () => {
     camera.translateX(movementVector.x)
     camera.translateZ(movementVector.z)
   }
+
+  cube.translateX(Math.cos(counter) > 0 ? 0.2 : -0.2)
+  counter += 0.1
 
   renderer.render(scene, camera)
   window.requestAnimationFrame(render)

@@ -1,32 +1,18 @@
-import { Application, Graphics } from 'pixi.js'
+import { Application } from 'pixi.js'
+import createSquare from './square'
 
 const SIZE = 200
 
-const createSquare = (size, color) => {
-  const square = new Graphics()
-
-  square.beginFill(color)
-  square.drawRect(0, 0, size, size)
-
-  return square
-}
-
 const app = new Application(window.innerWidth, window.innerHeight, {backgroundColor: 0x009DCD})
 
-const square = createSquare(SIZE, 0xDEE831)
+const square = createSquare(app, SIZE, 0xDEE831)
 
-app.stage.addChild(square)
+app.stage.addChild(square.element)
 
 document.body.appendChild(app.view)
-
-app.ticker.add(delta => {
-  const END = window.innerWidth - SIZE
-  const INCREMENT = 50 * delta
-  if (square.x < END) {
-    square.x += Math.min(INCREMENT, END - square.x)
-  }
-})
 
 window.addEventListener('resize', () => {
   app.renderer.resize(window.innerWidth, window.innerHeight)
 }, true)
+
+window.document.body.addEventListener('click', square.move)

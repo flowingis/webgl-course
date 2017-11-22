@@ -12,6 +12,8 @@ const createCamera = () => {
     1000
   )
 
+  camera.position.y = 1
+
   return camera
 }
 
@@ -25,8 +27,16 @@ const createCube = () => {
   const geometry = new THREE.BoxGeometry(1, 1, 1)
   const material = new THREE.MeshLambertMaterial({ color: 0xDEE831 })
   const cube = new THREE.Mesh(geometry, material)
-  cube.position.set(1, 0, -3)
+  cube.position.set(1, 1, -3)
   return cube
+}
+
+const createFloor = () => {
+  const geometry = new THREE.PlaneGeometry(1000, 1000, 1, 1)
+  const material = new THREE.MeshBasicMaterial({ color: 0x0000ff, side: THREE.DoubleSide })
+  const floor = new THREE.Mesh(geometry, material)
+  floor.rotation.x = Math.PI / 2
+  return floor
 }
 
 const createScene = () => {
@@ -39,11 +49,14 @@ const scene = createScene()
 const camera = createCamera()
 const cube = createCube()
 const light = createLight()
+const floor = createFloor()
+
 let movementVector
 let counter = 0
 
 scene.add(cube)
 scene.add(light)
+scene.add(floor)
 
 const renderer = new THREE.WebGLRenderer()
 

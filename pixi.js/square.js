@@ -1,17 +1,20 @@
-import { Graphics } from 'pixi.js'
+import { Sprite } from 'pixi.js'
 
-const createSquare = (size, color) => {
-  const square = new Graphics()
+const createSquare = (size) => {
+  const sprite = Sprite.fromImage('./assets/square.png')
 
-  square.beginFill(color)
-  square.drawRect(0, 0, size, size)
+  sprite.width = size
+  sprite.height = size
+  sprite.x = 0
+  sprite.y = 0
 
-  return square
+  return sprite
 }
 
-export default (app, size, color) => {
+export default (app, size) => {
   let shouldMove = false
-  const square = createSquare(size, color)
+  const square = createSquare(size)
+
   const move = () => {
     shouldMove = true
   }

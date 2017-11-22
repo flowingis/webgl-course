@@ -3,9 +3,9 @@ import createSquare from './square'
 
 const SIZE = 200
 
-const app = new Application(window.innerWidth, window.innerHeight, {backgroundColor: 0x009DCD})
+const app = new Application(window.innerWidth, window.innerHeight, {backgroundColor: 0xEDECED})
 
-const square = createSquare(app, SIZE, 0xDEE831)
+const square = createSquare(app, SIZE)
 
 app.stage.addChild(square.element)
 

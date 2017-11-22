@@ -82,7 +82,11 @@ loadElement('./assets/male02.obj')
     scene.add(minifigure)
   })
 
-let movementVector
+let movementVector = {
+  x: 0,
+  y: 0,
+  z: 0
+}
 
 scene.add(sky)
 scene.add(cube)
@@ -94,11 +98,24 @@ const renderer = new THREE.WebGLRenderer()
 document.body.appendChild(renderer.domElement)
 renderer.setSize(window.innerWidth, window.innerHeight)
 
+var raycaster = new THREE.Raycaster()
+
 const render = () => {
-  if (movementVector) {
-    camera.translateX(movementVector.x)
+  raycaster.setFromCamera({x: 0, y: 0}, camera)
+  var intersects = raycaster.intersectObjects([cube])
+  let intersection
+  if (intersects.length) {
+    intersection = intersects[0]
+  }
+
+  const movingBackward = movementVector.z > 0
+  const canMoveForward = intersection && intersection.distance >= 0.5 && movementVector.z < 0
+
+  if (!intersection || movingBackward || canMoveForward) {
     camera.translateZ(movementVector.z)
   }
+
+  camera.translateX(movementVector.x)
 
   renderer.render(scene, camera)
   window.requestAnimationFrame(render)

@@ -16,3 +16,7 @@ const square = createSquare(200, 0xDEE831)
 app.stage.addChild(square)
 
 document.body.appendChild(app.view)
+
+window.addEventListener('resize', () => {
+  app.renderer.resize(window.innerWidth, window.innerHeight)
+}, true)

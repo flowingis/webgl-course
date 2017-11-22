@@ -39,6 +39,7 @@ const scene = createScene()
 const camera = createCamera()
 const cube = createCube()
 const light = createLight()
+let movementVector
 
 scene.add(cube)
 scene.add(light)
@@ -49,11 +50,18 @@ document.body.appendChild(renderer.domElement)
 renderer.setSize(window.innerWidth, window.innerHeight)
 
 const render = () => {
+  if (movementVector) {
+    camera.translateX(movementVector.x)
+    camera.translateZ(movementVector.z)
+  }
+
   renderer.render(scene, camera)
   window.requestAnimationFrame(render)
 }
 
-bindControls(camera, document.body)
+bindControls(document.body, v => {
+  movementVector = v
+})
 
 window.requestAnimationFrame(render)
 

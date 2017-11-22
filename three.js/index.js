@@ -26,18 +26,34 @@ const createLight = () => {
 
 const createCube = () => {
   const geometry = new THREE.BoxGeometry(1, 1, 1)
-  const material = new THREE.MeshLambertMaterial({ color: 0xDEE831 })
+  const material = new THREE.MeshPhongMaterial({ map: THREE.ImageUtils.loadTexture('./assets/crate.jpg') })
   const cube = new THREE.Mesh(geometry, material)
   cube.position.set(1, 1, -3)
   return cube
 }
 
 const createFloor = () => {
-  const geometry = new THREE.PlaneGeometry(1000, 1000, 1, 1)
-  const material = new THREE.MeshBasicMaterial({ color: 0x0000ff, side: THREE.DoubleSide })
+  const geometry = new THREE.PlaneGeometry(1000, 1000)
+
+  const floorTexture = THREE.ImageUtils.loadTexture('./assets/grass.jpg')
+  floorTexture.wrapS = floorTexture.wrapT = THREE.RepeatWrapping
+  floorTexture.repeat.set(1000, 1000)
+
+  const material = new THREE.MeshBasicMaterial({ map: floorTexture, side: THREE.DoubleSide })
   const floor = new THREE.Mesh(geometry, material)
   floor.rotation.x = Math.PI / 2
+
   return floor
+}
+
+const createSky = () => {
+  const geometry = new THREE.PlaneGeometry(1000, 1000)
+  const material = new THREE.MeshBasicMaterial({ map: THREE.ImageUtils.loadTexture('./assets/sky.jpg'), side: THREE.DoubleSide })
+
+  const sky = new THREE.Mesh(geometry, material)
+  sky.position.z = -100
+
+  return sky
 }
 
 const createScene = () => {
@@ -51,16 +67,24 @@ const camera = createCamera()
 const cube = createCube()
 const light = createLight()
 const floor = createFloor()
+const sky = createSky()
 
 loadElement('./assets/male02.obj')
   .then(minifigure => {
+    const texture = THREE.ImageUtils.loadTexture('./assets/stone.jpg')
     minifigure.scale.set(0.02, 0.02, 0.02)
     minifigure.position.set(-6, 0, -6)
+    minifigure.traverse(child => {
+      if (child instanceof THREE.Mesh) {
+        child.material.map = texture
+      }
+    })
     scene.add(minifigure)
   })
 
 let movementVector
 
+scene.add(sky)
 scene.add(cube)
 scene.add(light)
 scene.add(floor)

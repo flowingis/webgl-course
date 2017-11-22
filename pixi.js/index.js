@@ -19,9 +19,9 @@ app.stage.addChild(square)
 
 document.body.appendChild(app.view)
 
-app.ticker.add(() => {
+app.ticker.add(delta => {
   const END = window.innerWidth - SIZE
-  const INCREMENT = 50
+  const INCREMENT = 50 * delta
   if (square.x < END) {
     square.x += Math.min(INCREMENT, END - square.x)
   }

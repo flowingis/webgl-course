@@ -7,8 +7,20 @@ const SIZE = 200
 const app = new Application(window.innerWidth, window.innerHeight, {backgroundColor: 0xEDECED})
 
 const square = createSquare(app, SIZE)
-const moveButton = createButton('Move', 20, window.innerHeight - 100)
-const rotateButton = createButton('Rotate', 200, window.innerHeight - 100)
+
+const moveButton = createButton({
+  text: 'Move',
+  x: 20,
+  y: window.innerHeight - 100,
+  onClick: square.move
+})
+
+const rotateButton = createButton({
+  text: 'Rotate',
+  x: 200,
+  y: window.innerHeight - 100,
+  onClick: square.startRotating
+})
 
 app.stage.addChild(square.element)
 app.stage.addChild(moveButton)
@@ -19,5 +31,3 @@ document.body.appendChild(app.view)
 window.addEventListener('resize', () => {
   app.renderer.resize(window.innerWidth, window.innerHeight)
 }, true)
-
-window.document.body.addEventListener('click', square.startRotating)

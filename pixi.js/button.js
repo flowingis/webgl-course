@@ -24,8 +24,12 @@ const createSprite = () => {
   return sprite
 }
 
-export default (text, x, y) => {
+export default ({text, x, y, onClick = () => {}}) => {
   const container = new Container()
+
+  container.interactive = true
+  container.buttonMode = true
+  container.on('click', onClick)
 
   const textElement = createText(text)
   const sprite = createSprite()

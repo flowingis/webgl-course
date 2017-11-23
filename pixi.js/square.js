@@ -1,22 +1,31 @@
-import { Sprite } from 'pixi.js'
+import { Sprite, filters } from 'pixi.js'
 
-const createSquare = (size) => {
+const createSquare = (size, x, y) => {
   const sprite = Sprite.fromImage('./assets/square.png')
 
   sprite.width = size
   sprite.height = size
-  sprite.x = size / 2
-  sprite.y = size / 2
+  sprite.x = x + size / 2
+  sprite.y = y + size / 2
   sprite.anchor.x = 0.5
   sprite.anchor.y = 0.5
+
+  const filter = new filters.ColorMatrixFilter()
+  sprite.filters = [filter]
+
+  const matrix = filter.matrix
+
+  matrix[0] = Math.random()
+  matrix[6] = Math.random()
+  matrix[12] = Math.random()
 
   return sprite
 }
 
-export default (app, size) => {
+export default ({app, size, x, y}) => {
   let shouldMove = false
   let shouldRotate = false
-  const square = createSquare(size)
+  const square = createSquare(size, x, y)
 
   const move = () => {
     shouldMove = true

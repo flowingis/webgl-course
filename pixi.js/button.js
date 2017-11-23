@@ -1,4 +1,4 @@
-import { Container, Sprite, Text, TextStyle } from 'pixi.js'
+import { Container, Sprite, Text, TextStyle, filters } from 'pixi.js'
 
 const WIDTH = 150
 const HEIGHT = 50
@@ -33,6 +33,16 @@ export default ({text, x, y, onClick = () => {}}) => {
 
   const textElement = createText(text)
   const sprite = createSprite()
+
+  container.on('pointerover', () => {
+    const colorMatrix = new filters.ColorMatrixFilter()
+    sprite.filters = [colorMatrix]
+    sprite.filters[0].lsd(2)
+  })
+
+  container.on('pointerout', () => {
+    sprite.filters = []
+  })
 
   container.x = x
   container.y = y

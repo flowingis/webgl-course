@@ -5,8 +5,10 @@ const createSquare = (size) => {
 
   sprite.width = size
   sprite.height = size
-  sprite.x = 0
-  sprite.y = 0
+  sprite.x = size / 2
+  sprite.y = size / 2
+  sprite.anchor.x = 0.5
+  sprite.anchor.y = 0.5
 
   return sprite
 }

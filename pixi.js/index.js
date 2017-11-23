@@ -7,12 +7,12 @@ const SIZE = 200
 const app = new Application(window.innerWidth, window.innerHeight, {backgroundColor: 0xEDECED})
 
 const square = createSquare(app, SIZE)
-const firstButton = createButton(20, window.innerHeight - 100)
-const secondButton = createButton(200, window.innerHeight - 100)
+const moveButton = createButton('Move', 20, window.innerHeight - 100)
+const rotateButton = createButton('Rotate', 200, window.innerHeight - 100)
 
 app.stage.addChild(square.element)
-app.stage.addChild(firstButton)
-app.stage.addChild(secondButton)
+app.stage.addChild(moveButton)
+app.stage.addChild(rotateButton)
 
 document.body.appendChild(app.view)
 

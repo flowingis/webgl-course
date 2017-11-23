@@ -1,0 +1,21 @@
+{
+  "name": "pixi-html",
+  "version": "0.0.1",
+  "scripts": {
+    "start": "webpack-dev-server"
+  },
+  "devDependencies": {
+    "babel-core": "6.26.0",
+    "babel-loader": "7.1.2",
+    "babel-preset-env": "1.6.1",
+    "copy-webpack-plugin": "4.2.1",
+    "standard": "10.0.3",
+    "webpack": "3.8.1",
+    "webpack-dev-server": "2.9.4",
+    "webpack-glsl-loader": "1.0.1"
+  },
+  "dependencies": {
+    "stats-js": "1.0.0-alpha1",
+    "pixi.js": "4.6.1"
+  }
+}

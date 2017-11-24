@@ -19,10 +19,8 @@ module.exports = {
           }
         },
         {
-          test: /\.glsl$/,
-          use: {
-            loader: 'webpack-glsl-loader'
-          }
+          test: /\.css$/,
+          use: [ 'style-loader', 'css-loader' ]
         }
       ]
     },

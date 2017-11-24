@@ -1,0 +1,80 @@
+@value primary-text-color: #666666; 
+@value secondary-text-color: #DEE831;
+@value primary-bg-color: #EFEFEF;
+@value secondary-bg-color: #1280AD;
+@value nav-width: 230px;
+@value header-height: 100px;
+@value footer-height: 50px;
+
+body {
+    margin:0;
+    padding:0;
+    font-family: Sans-Serif;
+    line-height: 1.5em;
+    color: primary-text-color;
+}
+
+#wrapper {
+    overflow: hidden;
+}
+
+header {
+    background: primary-bg-color;
+    height: header-height;
+}
+
+header img {
+    margin: 0;
+    padding-left: 15px;
+    padding-top: 15px;
+}
+
+main {
+    padding-bottom: 10010px;
+    margin-bottom: -10000px;
+    float: left;
+    width: 100%;
+}
+
+section.content {
+    margin-left: nav-width
+}
+
+nav {
+    padding-bottom: 10010px;
+    margin-bottom: -10000px;
+    float: left;
+    width: nav-width;
+    margin-left: -100%;
+    background: secondary-bg-color;
+    color: secondary-text-color;
+}
+
+nav .nav-title {
+    padding-left: 15px;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul a {
+    padding-left: 30px;
+    color: secondary-text-color;
+    text-decoration: none;
+}
+
+footer {
+    clear: left;
+    width: 100%;
+    background: primary-bg-color;
+    text-align: center;
+    height: footer-height;
+    line-height: footer-height;
+}
+
+footer p {
+    margin: 0;
+}

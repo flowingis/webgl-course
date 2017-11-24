@@ -1,12 +1,48 @@
+<!DOCTYPE html>
 <html>
-    <head>
-		<meta charset=utf-8>
-		<style>
-			body { margin: 0; }
-			canvas { width: 100%; height: 100% }
-		</style>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	</head>
-    <body>
-        <script type="text/javascript" src="bundle.js" charset="utf-8"></script>
-    </body>
+	
+	<body>		
+		<header>
+			<img src="https://www.extrategy.net/themes/custom/extrategy/img/logo-extrategy.svg" />
+		</header>
+		<div id="wrapper">
+			<main>
+				<section class="content">
+					<h1>Users</h1>
+					<table role="list">
+						<thead>
+							<tr>
+								<th>Photo</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</section>
+			</main>
+			<nav>
+				<h3 class="nav-title">Menu</h3>
+				<ul>
+					<li><a href="#">Link 1</a></li>
+					<li><a href="#">Link 2</a></li>
+					<li><a href="#">Link 3</a></li>
+					<li><a href="#">Link 4</a></li>
+					<li><a href="#">Link 5</a></li>
+				</ul>
+			</nav>
+		</div>
+		<footer>
+			<p>Contacts</p>
+		</footer>
+		<template id="user-row">
+			<tr>
+				<td role="photo"></td>
+				<td role="name"></td>
+			</tr>
+		</template>
+		<script type="text/javascript" src="bundle.js" charset="utf-8"></script>		
+	</body>
 </html>

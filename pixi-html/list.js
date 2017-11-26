@@ -1,5 +1,6 @@
 import { Application } from 'pixi.js'
 import { stripPx } from './utils'
+import listItemFactory from './listitem'
 
 export default (node, style) => {
   const ROW_HEIGHT = stripPx(style['row-height'])
@@ -16,6 +17,16 @@ export default (node, style) => {
   const setUsers = u => {
     users = u
     resize()
+    users
+    .map((user, index) => {
+      const width = window.innerWidth - NAV_WIDTH
+      return listItemFactory({
+        width,
+        index,
+        height: ROW_HEIGHT
+      })
+    })
+    .forEach(row => app.stage.addChild(row.element))
   }
 
   node.appendChild(app.view)

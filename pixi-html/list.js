@@ -5,6 +5,7 @@ import listItemFactory from './listitem'
 export default (node, style) => {
   const ROW_HEIGHT = stripPx(style['row-height'])
   const NAV_WIDTH = stripPx(style['nav-width'])
+  const SCROLL_WIDTH = 15
   const app = new Application({backgroundColor: 0xffffff})
   let users = []
 
@@ -14,15 +15,23 @@ export default (node, style) => {
     app.renderer.resize(width, height)
   }
 
+  const calculateRowWidth = () => {
+    let scrollOffset = 0
+    if (document.body.scrollHeight > window.innerHeight) {
+      scrollOffset = SCROLL_WIDTH
+    }
+
+    return window.innerWidth - NAV_WIDTH - scrollOffset
+  }
+
   const setUsers = u => {
     users = u
     resize()
     users
     .map((user, index) => {
-      const width = window.innerWidth - NAV_WIDTH
       return listItemFactory({
         user,
-        width,
+        width: calculateRowWidth(),
         index,
         height: ROW_HEIGHT,
         showSeparator: index !== users.length - 1

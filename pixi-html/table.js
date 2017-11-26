@@ -6,7 +6,7 @@ export default () => {
 
   const createNode = (user, index) => {
     const node = template.content.cloneNode(true)
-    photoFactory(node.querySelector('td[role="photo"]'), user)
+    photoFactory(node.querySelector('td[role="photo"]'), user.picture + (index % 10))
     node.querySelector('td[role="name"]').innerHTML = user.name
     return node
   }

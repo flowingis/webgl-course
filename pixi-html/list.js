@@ -24,7 +24,8 @@ export default (node, style) => {
         user,
         width,
         index,
-        height: ROW_HEIGHT
+        height: ROW_HEIGHT,
+        showSeparator: index !== users.length - 1
       })
     })
     .forEach(row => app.stage.addChild(row.element))

@@ -21,6 +21,7 @@ export default (node, style) => {
     .map((user, index) => {
       const width = window.innerWidth - NAV_WIDTH
       return listItemFactory({
+        user,
         width,
         index,
         height: ROW_HEIGHT

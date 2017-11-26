@@ -5,7 +5,9 @@
 @value nav-width: 230px;
 @value header-height: 100px;
 @value footer-height: 50px;
-@value row-height: 50px;
+@value row-height: 70px;
+@value row-padding: 10px;
+@value photo-size: 50px;
 
 body {
     margin:0;

@@ -1,17 +1,27 @@
-import { Graphics } from 'pixi.js'
+import { Container } from 'pixi.js'
+import photoFactory from './photo'
 
-const createSquare = (width, height, y) => {
-  const row = new Graphics()
+const createSquare = (width, height, y, picture) => {
+  const row = new Container()
 
-  row.beginFill(0xffffff)
-  row.lineStyle(1, 0x000000)
-  row.drawRect(0, y, width, height)
+  row.x = 0
+  row.y = y
+  row.width = width
+  row.height = height
+
+  const photo = photoFactory({
+    picture,
+    width: 50
+  })
+
+  row.addChild(photo)
 
   return row
 }
 
 export default ({style, user, width, height, index}) => {
-  const row = createSquare(width, height, index * height)
+  const y = index * height
+  const row = createSquare(width, height, y, user.picture)
   return {
     element: row
   }

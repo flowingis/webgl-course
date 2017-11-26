@@ -2,7 +2,7 @@ import { Application } from 'pixi.js'
 import { stripPx } from './utils'
 
 export default (node, style) => {
-  const ROW_HEIGHT = 50
+  const ROW_HEIGHT = stripPx(style['row-height'])
   const NAV_WIDTH = stripPx(style['nav-width'])
   const app = new Application({backgroundColor: 0xffffff})
   let users = []

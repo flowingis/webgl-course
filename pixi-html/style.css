@@ -5,6 +5,7 @@
 @value nav-width: 230px;
 @value header-height: 100px;
 @value footer-height: 50px;
+@value row-height: 50px;
 
 body {
     margin:0;

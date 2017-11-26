@@ -10,7 +10,7 @@ const listNode = document.querySelector('div[role="list"]')
 const listElement = list(listNode, style)
 
 listUsers().then(users => {
-
+  listElement.setUsers(users)
 })
 
 window.addEventListener('resize', () => {

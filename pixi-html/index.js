@@ -1,7 +1,9 @@
-import './style.css'
+import style from './style.css'
 import { list as listUsers } from './users'
 import list from './list'
 import initStats from './stats'
+
+console.log(style)
 
 initStats()
 

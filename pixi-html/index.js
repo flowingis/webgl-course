@@ -1,10 +1,14 @@
 import './style.css'
-import { list } from './users'
-import tableFactory from './table'
+import { list as listUsers } from './users'
+import list from './list'
 import initStats from './stats'
 
 initStats()
 
-const table = tableFactory()
+const listNode = document.querySelector('div[role="list"]')
 
-list().then(table.setData)
+list(listNode)
+
+listUsers().then(users => {
+
+})

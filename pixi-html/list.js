@@ -1,6 +1,9 @@
-import { Application } from 'pixi.js'
+import { Application, loader } from 'pixi.js'
+import { Resource } from 'resource-loader'
 import { stripPx } from './utils'
 import listItemFactory from './listitem'
+import { PLACEHOLDER_URL } from './photo'
+import { uniq } from 'lodash'
 
 export default (node, style) => {
   const ROW_HEIGHT = stripPx(style['row-height'])
@@ -26,18 +29,31 @@ export default (node, style) => {
 
   const setUsers = u => {
     users = u
+
     resize()
-    users
-    .map((user, index) => {
-      return listItemFactory({
-        user,
-        width: calculateRowWidth(),
-        index,
-        height: ROW_HEIGHT,
-        showSeparator: index !== users.length - 1
+
+    loader.add(PLACEHOLDER_URL).load(() => {
+      const pictures = uniq(users.map(u => u.picture))
+      pictures.forEach(picture => {
+        loader.add(picture, picture, {
+          loadType: Resource.LOAD_TYPE.IMAGE
+        })
+      })
+
+      const rows = users.map((user, index) => {
+        return listItemFactory({
+          user,
+          width: calculateRowWidth(),
+          index,
+          height: ROW_HEIGHT,
+          showSeparator: index !== users.length - 1
+        })
+      })
+
+      rows.forEach(row => {
+        app.stage.addChild(row.element)
       })
     })
-    .forEach(row => app.stage.addChild(row.element))
   }
 
   node.appendChild(app.view)

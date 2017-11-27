@@ -1,19 +1,19 @@
 import { Container, Graphics, Text, TextStyle } from 'pixi.js'
 import style from './style.css'
-import { stripPx } from './utils'
+import { stripPx, hexToInt } from './utils'
 import photoFactory from './photo'
 
 const padding = stripPx(style['row-padding'])
 const photoSize = stripPx(style['photo-size'])
+const fontColor = style['primary-text-color']
 
 const createText = name => {
   const style = new TextStyle({
     fontSize: 18,
-    fill: '#000000'
+    fill: fontColor
   })
 
   const textElement = new Text(name, style)
-
   textElement.x = photoSize + padding * 2
   textElement.y = padding
 
@@ -22,7 +22,7 @@ const createText = name => {
 
 const createSeparator = (width, height) => {
   const line = new Graphics()
-  line.lineStyle(2, 0x000000)
+  line.lineStyle(2, hexToInt(fontColor))
   line.moveTo(padding, height)
   line.lineTo(width - padding, height)
   return line

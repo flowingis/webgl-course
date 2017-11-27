@@ -8,11 +8,12 @@
 @value row-height: 70px;
 @value row-padding: 10px;
 @value photo-size: 50px;
+@value font: "Oswald";
 
 body {
     margin:0;
     padding:0;
-    font-family: Sans-Serif;
+    font-family: font;
     line-height: 1.5em;
     color: primary-text-color;
 }

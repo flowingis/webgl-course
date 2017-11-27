@@ -1,14 +1,16 @@
 import { Container, Graphics, Text, TextStyle } from 'pixi.js'
 import style from './style.css'
-import { stripPx, hexToInt } from './utils'
+import { stripPx, hexToInt, parseFontType } from './utils'
 import photoFactory from './photo'
 
 const padding = stripPx(style['row-padding'])
 const photoSize = stripPx(style['photo-size'])
 const fontColor = style['primary-text-color']
+const fontFamily = parseFontType(style.font)
 
 const createText = name => {
   const style = new TextStyle({
+    fontFamily,
     fontSize: 18,
     fill: fontColor
   })

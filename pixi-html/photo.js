@@ -9,8 +9,10 @@ export default ({picture, width, y = 0, x = 0}) => {
   photo.y = y
   photo.x = x
 
-  loader.onComplete.add(() => {
-    photo.texture = loader.resources[picture].texture
+  loader.onLoad.add((status, resource) => {
+    if (resource.name === picture) {
+      photo.texture = loader.resources[picture].texture
+    }
   })
 
   return photo

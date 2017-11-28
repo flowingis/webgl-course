@@ -1,4 +1,4 @@
-import { Application, loader } from 'pixi.js'
+import { Application, loader, Container } from 'pixi.js'
 import { Resource } from 'resource-loader'
 import { stripPx } from './utils'
 import listItemFactory from './listitem'
@@ -7,18 +7,45 @@ import { uniq } from 'lodash'
 import style from './style.css'
 
 const ROW_HEIGHT = stripPx(style['row-height'])
+const HEADER_HEIGHT = stripPx(style['header-height'])
 const ROW_WIDTH = stripPx(style['row-width'])
 const NAV_WIDTH = stripPx(style['nav-width'])
 
+const calculateSize = () => {
+  const width = window.innerWidth - NAV_WIDTH
+  const height = window.innerHeight
+
+  return {
+    width,
+    height
+  }
+}
+
+const createApp = (node) => {
+  const size = calculateSize()
+  const app = new Application(size.width, size.height, {backgroundColor: 0xffffff})
+  app.view.style.position = 'fixed'
+  app.view.style.top = `${node.getBoundingClientRect().y}px`
+  app.view.style.left = `${node.getBoundingClientRect().x}px`
+  return app
+}
+
 export default (node, style) => {
-  const app = new Application({backgroundColor: 0xffffff})
   let users = []
 
+  const app = createApp(node)
+  const initialTop = node.getBoundingClientRect().y
+
+  const container = new Container()
+  container.x = 0
+  container.y = 0
+
+  app.stage.addChild(container)
+
   const resize = () => {
-    const elementsPerRow = Math.floor((window.innerWidth - NAV_WIDTH) / ROW_WIDTH)
-    const width = window.innerWidth - NAV_WIDTH
-    const height = Math.floor(users.length / elementsPerRow) * ROW_HEIGHT
-    app.renderer.resize(width, height)
+    const size = calculateSize()
+    app.renderer.resize(size.width, size.height)
+    container.width = size.width
   }
 
   const getCoords = index => {
@@ -33,7 +60,11 @@ export default (node, style) => {
   const setUsers = u => {
     users = u
 
-    resize()
+    const elementsPerRow = Math.floor((window.innerWidth - NAV_WIDTH) / ROW_WIDTH)
+    const height = Math.floor(users.length / elementsPerRow) * ROW_HEIGHT
+
+    node.style.height = `${height}px`
+    container.height = height
 
     loader.add([PLACEHOLDER_URL, ERRORED_IMAGE_URL]).load(() => {
       const pictures = uniq(users.map(u => u.picture))
@@ -55,9 +86,14 @@ export default (node, style) => {
       })
 
       rows.forEach(row => {
-        app.stage.addChild(row.element)
+        container.addChild(row.element)
       })
     })
+
+    window.addEventListener('scroll', () => {
+      app.view.style.top = `${Math.max(0, initialTop - window.pageYOffset)}px`
+      container.y = -1 * Math.max(0, window.pageYOffset - initialTop)
+    }, false)
   }
 
   node.appendChild(app.view)

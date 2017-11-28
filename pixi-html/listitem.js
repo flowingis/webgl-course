@@ -31,11 +31,11 @@ const createText = name => {
   return textElement
 }
 
-const createRow = ({y, user, showSeparator, index, app}) => {
+const createRow = ({user, showSeparator, index, app, coords}) => {
   const row = new Container()
 
-  row.x = 0
-  row.y = index * ROW_HEIGHT
+  row.x = coords.x
+  row.y = coords.y
   row.width = ROW_WIDTH
   row.height = ROW_HEIGHT
 

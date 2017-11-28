@@ -7,26 +7,27 @@ import { uniq } from 'lodash'
 import style from './style.css'
 
 const ROW_HEIGHT = stripPx(style['row-height'])
+const ROW_WIDTH = stripPx(style['row-width'])
 const NAV_WIDTH = stripPx(style['nav-width'])
-const SCROLL_WIDTH = 15
 
 export default (node, style) => {
   const app = new Application({backgroundColor: 0xffffff})
   let users = []
 
   const resize = () => {
+    const elementsPerRow = Math.floor((window.innerWidth - NAV_WIDTH) / ROW_WIDTH)
     const width = window.innerWidth - NAV_WIDTH
-    const height = users.length * ROW_HEIGHT
+    const height = Math.floor(users.length / elementsPerRow) * ROW_HEIGHT
     app.renderer.resize(width, height)
   }
 
-  const calculateRowWidth = () => {
-    let scrollOffset = 0
-    if (document.body.scrollHeight > window.innerHeight) {
-      scrollOffset = SCROLL_WIDTH
+  const getCoords = index => {
+    const elementsPerRow = Math.floor((window.innerWidth - NAV_WIDTH) / ROW_WIDTH)
+    const x = ROW_WIDTH * (index % elementsPerRow)
+    const y = Math.floor(index / elementsPerRow) * ROW_HEIGHT
+    return {
+      x, y
     }
-
-    return window.innerWidth - NAV_WIDTH - scrollOffset
   }
 
   const setUsers = u => {
@@ -43,7 +44,9 @@ export default (node, style) => {
       })
 
       const rows = users.map((user, index) => {
+        const coords = getCoords(index)
         return listItemFactory({
+          coords,
           app,
           user,
           index,

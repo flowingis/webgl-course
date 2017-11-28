@@ -30,7 +30,7 @@ const createSeparator = (width, height) => {
   return line
 }
 
-const createRow = ({width, height, y, user, showSeparator, index}) => {
+const createRow = ({width, height, y, user, showSeparator, index, app}) => {
   const row = new Container()
 
   row.x = 0
@@ -39,6 +39,7 @@ const createRow = ({width, height, y, user, showSeparator, index}) => {
   row.height = height
 
   const photo = photoFactory({
+    app,
     picture: user.picture,
     y: padding,
     x: padding,

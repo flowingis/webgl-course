@@ -42,6 +42,7 @@ export default (node, style) => {
 
       const rows = users.map((user, index) => {
         return listItemFactory({
+          app,
           user,
           width: calculateRowWidth(),
           index,

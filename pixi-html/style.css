@@ -10,6 +10,8 @@
 @value row-padding: 10px;
 @value photo-size: 50px;
 @value font: "Oswald";
+@value row-font-size: 18px;
+@value row-max-font-size: 28px;
 
 body {
     margin:0;

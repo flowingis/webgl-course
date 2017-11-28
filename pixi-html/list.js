@@ -2,7 +2,7 @@ import { Application, loader } from 'pixi.js'
 import { Resource } from 'resource-loader'
 import { stripPx } from './utils'
 import listItemFactory from './listitem'
-import { PLACEHOLDER_URL } from './photo'
+import { PLACEHOLDER_URL, ERRORED_IMAGE_URL } from './photo'
 import { uniq } from 'lodash'
 
 export default (node, style) => {
@@ -32,7 +32,7 @@ export default (node, style) => {
 
     resize()
 
-    loader.add(PLACEHOLDER_URL).load(() => {
+    loader.add([PLACEHOLDER_URL, ERRORED_IMAGE_URL]).load(() => {
       const pictures = uniq(users.map(u => u.picture))
       pictures.forEach(picture => {
         loader.add(picture, picture, {

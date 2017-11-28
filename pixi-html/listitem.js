@@ -43,7 +43,9 @@ const createRow = ({width, height, y, user, showSeparator, index, app}) => {
     picture: user.picture,
     y: padding,
     x: padding,
-    width: photoSize
+    width: photoSize,
+    animationDelay: 500 * index,
+    clockWise: index % 2 === 0
   })
 
   const text = createText(user.name)

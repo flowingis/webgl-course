@@ -1,4 +1,3 @@
-import style from './style.css'
 import { list as listUsers } from './users'
 import list from './list'
 import initStats from './stats'
@@ -7,7 +6,7 @@ initStats()
 
 const listNode = document.querySelector('div[role="list"]')
 
-const listElement = list(listNode, style)
+const listElement = list(listNode)
 
 listUsers().then(users => {
   listElement.setUsers(users)

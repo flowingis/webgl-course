@@ -6,6 +6,7 @@
 @value header-height: 100px;
 @value footer-height: 50px;
 @value row-height: 70px;
+@value row-width: 300px;
 @value row-padding: 10px;
 @value photo-size: 50px;
 @value font: "Oswald";

@@ -4,11 +4,13 @@ import { stripPx } from './utils'
 import listItemFactory from './listitem'
 import { PLACEHOLDER_URL, ERRORED_IMAGE_URL } from './photo'
 import { uniq } from 'lodash'
+import style from './style.css'
+
+const ROW_HEIGHT = stripPx(style['row-height'])
+const NAV_WIDTH = stripPx(style['nav-width'])
+const SCROLL_WIDTH = 15
 
 export default (node, style) => {
-  const ROW_HEIGHT = stripPx(style['row-height'])
-  const NAV_WIDTH = stripPx(style['nav-width'])
-  const SCROLL_WIDTH = 15
   const app = new Application({backgroundColor: 0xffffff})
   let users = []
 
@@ -44,9 +46,7 @@ export default (node, style) => {
         return listItemFactory({
           app,
           user,
-          width: calculateRowWidth(),
           index,
-          height: ROW_HEIGHT,
           showSeparator: index !== users.length - 1
         })
       })

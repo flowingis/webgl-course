@@ -74,6 +74,10 @@ const createRow = ({user, showSeparator, index, app, coords}) => {
     shouldGrow = false
   })
 
+  row.on('click', () => {
+    console.log(user)
+  })
+
   app.ticker.add(delta => {
     if (shouldGrow) {
       text.style.fontSize = Math.min(ROW_MAX_FONT_SIZE, text.style.fontSize + 0.5 * delta)

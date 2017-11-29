@@ -1,4 +1,4 @@
-import { Container, Graphics, Text, TextStyle } from 'pixi.js'
+import { Container, Graphics, Text, TextStyle, Sprite, loader } from 'pixi.js'
 import { hexToInt, parseFontType } from './utils'
 import style from './style.css'
 
@@ -8,20 +8,31 @@ const BACKGROUND_COLOR = hexToInt(style['secondary-bg-color'])
 
 export default (app) => {
   const container = new Container()
-  container.x = app.renderer.width
+  const { width, height } = app.renderer
+  container.x = width
   container.y = 0
 
   const background = new Graphics()
   background.beginFill(BACKGROUND_COLOR)
-  background.drawRect(0, 0, app.renderer.width, app.renderer.height)
+  background.drawRect(0, 0, width, height)
 
-  const text = new Text('Detail', new TextStyle({
+  const photo = new Sprite()
+  photo.width = width / 2
+  photo.height = width / 2
+  photo.x = width / 4
+  photo.y = height / 10
+
+  const name = new Text('', new TextStyle({
     fill: FONT_COLOR,
     fontFamily: FONT_FAMILY
   }))
 
+  name.y = photo.y + photo.height + (height / 10)
+
   container.addChild(background)
-  container.addChild(text)
+  container.addChild(photo)
+  container.addChild(name)
+
   container.interactive = true
 
   let shouldShow = false
@@ -53,14 +64,19 @@ export default (app) => {
     }
   }
 
+  const show = user => {
+    if (!shown) {
+      shouldShow = true
+      photo.texture = loader.resources[user.picture].texture
+      name.text = user.name
+      name.x = (width - name.width) / 2
+    }
+  }
+
   container.on('click', hide)
 
   return {
     element: container,
-    show: () => {
-      if (!shown) {
-        shouldShow = true
-      }
-    }
+    show
   }
 }

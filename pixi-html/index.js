@@ -29,8 +29,7 @@ listUsers().then(users => {
 })
 
 list.setOnUserClick(user => {
-  console.log(user)
-  detail.show()
+  detail.show(user)
 })
 
 window.addEventListener('scroll', () => {

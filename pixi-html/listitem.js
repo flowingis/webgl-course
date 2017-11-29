@@ -36,7 +36,7 @@ const createText = name => {
   return textElement
 }
 
-const createRow = ({user, showSeparator, index, app, coords}) => {
+const createRow = ({user, showSeparator, index, app, coords, onClick}) => {
   const row = new Container()
 
   row.x = coords.x
@@ -75,7 +75,7 @@ const createRow = ({user, showSeparator, index, app, coords}) => {
   })
 
   row.on('click', () => {
-    console.log(user)
+    onClick(user)
   })
 
   app.ticker.add(delta => {

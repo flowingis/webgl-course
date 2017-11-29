@@ -12,6 +12,7 @@ const NAV_WIDTH = stripPx(style['nav-width'])
 
 export default (app, node) => {
   let users = []
+  let onUserClick = () => {}
 
   const initialTop = node.getBoundingClientRect().y
 
@@ -48,7 +49,10 @@ export default (app, node) => {
           app,
           user,
           index,
-          showSeparator: index !== users.length - 1
+          showSeparator: index !== users.length - 1,
+          onClick: (user) => {
+            onUserClick(user)
+          }
         })
       })
 
@@ -65,6 +69,9 @@ export default (app, node) => {
   return {
     element: container,
     setUsers,
-    onScroll
+    onScroll,
+    setOnUserClick: cb => {
+      onUserClick = cb
+    }
   }
 }

@@ -28,6 +28,11 @@ listUsers().then(users => {
   list.setUsers(users)
 })
 
+list.setOnUserClick(user => {
+  console.log(user)
+  detail.show()
+})
+
 window.addEventListener('scroll', () => {
   application.onScroll()
   list.onScroll()

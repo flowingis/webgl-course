@@ -22,8 +22,45 @@ export default (app) => {
 
   container.addChild(background)
   container.addChild(text)
+  container.interactive = true
+
+  let shouldShow = false
+  let shown = false
+  let shouldHide = false
+
+  app.ticker.add(delta => {
+    if (shouldShow) {
+      container.x = Math.max(0, container.x - 50 * delta)
+      if (container.x === 0) {
+        shouldShow = false
+        shown = true
+      }
+      return
+    }
+
+    if (shouldHide) {
+      container.x = Math.min(app.renderer.width, container.x + 50 * delta)
+      if (container.x === app.renderer.width) {
+        shouldHide = false
+        shown = false
+      }
+    }
+  })
+
+  const hide = () => {
+    if (shown) {
+      shouldHide = true
+    }
+  }
+
+  container.on('click', hide)
 
   return {
-    element: container
+    element: container,
+    show: () => {
+      if (!shown) {
+        shouldShow = true
+      }
+    }
   }
 }

@@ -7,8 +7,6 @@ const createSquare = (size, x, y) => {
   sprite.height = size
   sprite.x = x + size / 2
   sprite.y = y + size / 2
-  sprite.anchor.x = 0.5
-  sprite.anchor.y = 0.5
 
   const colorFilter = new filters.ColorMatrixFilter()
   const matrix = colorFilter.matrix

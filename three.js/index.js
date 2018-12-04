@@ -1,6 +1,7 @@
 import * as THREE from 'three'
 import initStats from './stats'
 import bindControls from './controls'
+import bindSpace from './space'
 import loadElement from './loadElement'
 
 initStats()
@@ -88,6 +89,9 @@ let movementVector = {
   z: 0
 }
 
+let shouldJump = false
+let jumoCounter = 0
+
 scene.add(sky)
 scene.add(cube)
 scene.add(light)
@@ -99,6 +103,18 @@ document.body.appendChild(renderer.domElement)
 renderer.setSize(window.innerWidth, window.innerHeight)
 
 var raycaster = new THREE.Raycaster()
+
+const jump = () => {
+  if (shouldJump) {
+    camera.translateY(Math.sin(jumoCounter / 5))
+    jumoCounter++
+    if (camera.position.y < 1) {
+      shouldJump = false
+      jumoCounter = 0
+      camera.position.setY(1)
+    }
+  }
+}
 
 const render = () => {
   raycaster.setFromCamera({x: 0, y: 0}, camera)
@@ -116,6 +132,7 @@ const render = () => {
   }
 
   camera.translateX(movementVector.x)
+  jump()
 
   renderer.render(scene, camera)
   window.requestAnimationFrame(render)
@@ -123,6 +140,10 @@ const render = () => {
 
 bindControls(document.body, v => {
   movementVector = v
+})
+
+bindSpace(document.body, () => {
+  shouldJump = true
 })
 
 window.requestAnimationFrame(render)
